@@ -112,3 +112,31 @@ $("#folderUpload").on("change", async function () {
   });
 });
 QR_CODE_DISPLAY.clear();
+
+// Opening new window on button click
+$("#openNewWindow")
+  .off()
+  .on("click", function () {
+    // Detect browsers and use the appropriate API
+    var isFirefox = typeof InstallTrigger !== "undefined";
+    var isChrome =
+      !!window.chrome && (!!window.chrome.webstore || !!window.chrome.csi);
+    console.log(isFirefox + "Firefox");
+    console.log(isChrome + "Chrome");
+    if (isFirefox) {
+      browser.windows.create({
+        url: "./fileUpload.html",
+        type: "popup",
+        height: 700,
+        width: 400,
+      });
+    }
+    if (isChrome) {
+      chrome.windows.create({
+        url: chrome.runtime.getURL("fileUpload.html"),
+        type: "popup",
+        height: 700,
+        width: 400,
+      });
+    }
+  });

@@ -2,7 +2,7 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
-const Dotenv = require('dotenv-webpack');
+const Dotenv = require("dotenv-webpack");
 
 var fileExtensions = [
   "jpg",
@@ -30,13 +30,12 @@ module.exports = {
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        use:
-          {
-            loader: "babel-loader",
-            options: {
-              presets: ["@babel/preset-env", "@babel/preset-react"],
-            },
+        use: {
+          loader: "babel-loader",
+          options: {
+            presets: ["@babel/preset-env", "@babel/preset-react"],
           },
+        },
       },
       {
         test: /\.css$/,
@@ -61,12 +60,16 @@ module.exports = {
       template: path.join(__dirname, "src", "folderUpload.html"),
       filename: "folderUpload.html",
     }),
+    new HtmlWebpackPlugin({
+      template: path.join(__dirname, "src", "fileUpload.html"),
+      filename: "fileUpload.html",
+    }),
     new MiniCssExtractPlugin(),
     new CopyPlugin({
       patterns: [{ from: "publicFF" }],
     }),
     new Dotenv({
-			path: './.env'
-		}),
+      path: "./.env",
+    }),
   ],
 };
